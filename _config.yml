@@ -1,1 +1,7 @@
 theme: jekyll-theme-cayman
+title: "Service Binding"
+description: "Bind Services to Kubernetes Applications"
+github:
+  repository_url: https://github.com/k8s-service-bindings/spec
+  is_project_page: true
+  owner_url: "https://github.com/k8s-service-bindings"
