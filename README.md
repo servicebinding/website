@@ -2,7 +2,7 @@
 
 ## Introduction
 
-**TODO**
+Coming soon.
 
 ## Installing Service Binding Controller
 
@@ -28,11 +28,11 @@ These are the major resources that is getting created during the installation:
 
 ## Creating Provisioned Services
 
-**TODO**
+Coming soon.
 
 ## Binding Workloads with Services
 
-**TODO**
+Coming soon.
 
 ## Consuming the Bindings from Workloads
 
