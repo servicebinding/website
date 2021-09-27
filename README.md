@@ -1,39 +1,5 @@
 # Service Binding
 
-## Introduction
-
-Coming soon.
-
-## Installing Service Binding Controller
-
-[Service Binding Controller](https://github.com/k8s-service-bindings/service-binding-controller) is a Kubernetes operator that implements [Service Binding Specification](https://github.com/k8s-service-bindings/spec).  Service Binding Controller works with the recent versions of Kubernetes.  You can use Kubernetes version 1.19 or above.  You also need [kubectl](https://kubernetes.io/docs/tasks/tools/) CLI tool install in your system.
-
-You can install the latest version of Service Binding Controller with this command:
-
-```
-kubectl apply -f https://github.com/k8s-service-bindings/service-binding-controller/releases/latest/download/release.yaml
-```
-
-If you need a particular version, replace `<version>` in this command:
-
-```
-kubectl apply -f https://github.com/k8s-service-bindings/service-binding-controller/releases/download/<version>/release.yaml
-```
-
-These are the major resources that is getting created during the installation:
-
-1. A namespace with name as `service-binding-controller-system`.  All the namespace scoped resources are created in this namespace.
-2. Two CRDs: `ClusterWorkloadResourceMapping` (cluster scoped), `ServiceBinding` (namespace scoped)
-3. ClusterRole: `service-binding-controller-manager-role-with-aggregation-rule`
-
-## Creating Provisioned Services
-
-Coming soon.
-
-## Binding Workloads with Services
-
-Coming soon.
-
 ## Consuming the Bindings from Workloads
 
 The [Workload Projection section](https://github.com/k8s-service-bindings/spec#workload-projection) of the specification describes how bindings are projected into the workload.  The primary mechanism of projection is through files mounted at a specific directory.  The bindings directory path is discovered through the mandatory `$SERVICE_BINDING_ROOT` environment variable set on all containers where bindings are created.
@@ -75,6 +41,8 @@ For languages such as Go without operator overloading, separate functions can be
 Bindings(_type string) []Binding
 BindingsWithProvider(_type, provider string) []Binding
 ```
+
+(Example taken from [Go ServiceBinding package](https://github.com/baijum/servicebinding))
 
 For languages such as Java with operator overloading, the same method name with different argument lists can be used to retrieve bindings:
 
