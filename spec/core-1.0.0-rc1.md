@@ -1,5 +1,6 @@
 ---
-permalink: /spec/1.0.0-rc1
+title: Service Binding for Kubernetes 1.0.0-rc1
+permalink: /spec/core/1.0.0-rc1/
 ---
 
 # Service Binding Specification

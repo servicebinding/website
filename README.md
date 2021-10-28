@@ -1,7 +1,17 @@
-# Service Binding
+---
+title: Service Binding for Kubernetes
+permalink: /
+---
 
-## Consuming the Bindings from Workloads
+Today in Kubernetes, the exposure of secrets for connecting application workloads to external services such as REST APIs, databases, event buses, and many more is manual and bespoke.  Each service provider suggests a different way to access their secrets, and each application developer consumes those secrets in a custom way to their workloads.  While there is a good deal of value to this flexibility level, large development teams lose overall velocity dealing with each unique solution.  To combat this, we already see teams adopting internal patterns for how to achieve this workload-to-service linkage.
 
+This project specifies a Kubernetes-wide specification for communicating service secrets to workloads in an automated way.  It aims to create a widely applicable mechanism but _without_ excluding other strategies for systems that it does not fit easily.  The benefit of Kubernetes-wide specification is that all of the actors in an ecosystem can work towards a clearly defined abstraction at the edge of their expertise and depend on other parties to complete the chain.
+
+* Application Developers expect their secrets to be exposed consistently and predictably.
+* Service Providers expect their secrets to be collected and exposed to users consistently and predictably.
+* Platforms expect to retrieve secrets from Service Providers and expose them to Application Developers consistently and predictably.
+
+# Consuming the Bindings from Workloads
 The [Workload Projection section](https://github.com/k8s-service-bindings/spec#workload-projection) of the specification describes how bindings are projected into the workload.  The primary mechanism of projection is through files mounted at a specific directory.  The bindings directory path is discovered through the mandatory `$SERVICE_BINDING_ROOT` environment variable set on all containers where bindings are created.
 
 Within this service binding root directory, multiple Service Bindings may be projected.  For example, a workload that requires both a database and event stream will declare one `ServiceBinding` for the database, a second `ServiceBinding` for the event stream, and both bindings will be projected as subdirectories of the root.
@@ -58,3 +68,9 @@ The specification does not guarantee a single binding of a given type or type & 
 ### Environment Variables
 
 The specification also has support for projecting binding values as environment variables.  You can use the built-in language feature of your programming language of choice to read environment variables.  The container must restart to update the values of environment variables if there is a change in the binding.
+
+# Specification
+* Core
+  * [1.0.0-rc3](/spec/core/1.0.0-rc3/) (pre-release)
+  * [1.0.0-rc2](/spec/core/1.0.0-rc2/) (pre-release)
+  * [1.0.0-rc1](/spec/core/1.0.0-rc1/) (pre-release)
