@@ -41,33 +41,124 @@ Usually, operators use `ServiceBinding` resource name (`.metadata.name`) as the 
 
 The specification mandates the `type` field and recommends `provider` field in the projected binding.  In many cases the `type` field should be good enough to select the appropriate binding.  In cases where it is not (e.g. when there are different providers for the same Provisioned Service), the `provider` field may be used.  For example, when the type is `mysql`, the `provider` value might be `mariadb`, `oracle`, `bitnami`, `aws-rds`, etc.  When the workload is selecting a binding, if necessary, it could consider `type` and `provider` as a composite key to avoid ambiguity.  This could be helpful if a workload needs to choose a particular provider based on the deployment environment.  In the deployment environment (`stage`, `prod`, etc.), at any given time, you need to ensure only one binding projection exists for a given `type` or `type` and `provider` -- unless your workload needs to connect to all the services.
 
-### Programming language specific library APIs
-
-A workload can retrieve bindings through a library available for your programming language of choice.  Language-specific APIs are encouraged to follow the pattern described here, but may not.  Consult your library API documentation to confirm its behavior.
-
-For languages such as Go without operator overloading, separate functions can be used to retrieve bindings:
-
-```
-Bindings(_type string) []Binding
-BindingsWithProvider(_type, provider string) []Binding
-```
-
-(Example taken from [Go ServiceBinding package](https://github.com/baijum/servicebinding))
-
-For languages such as Java with operator overloading, the same method name with different argument lists can be used to retrieve bindings:
-
-```
-public List<Binding> filterBindings(@Nullable String type)
-public List<Binding> filterBindings(@Nullable String type, @Nullable String provider)
-```
-
-(Example taken from [Spring Cloud Bindings](https://github.com/spring-cloud/spring-cloud-bindings))
-
-The specification does not guarantee a single binding of a given type or type & provider tuple so the APIs return collections of bindings.  Depending on your workload need, you can choose to connect to the first entry or all of them.
-
 ### Environment Variables
 
-The specification also has support for projecting binding values as environment variables.  You can use the built-in language feature of your programming language of choice to read environment variables.  The container must restart to update the values of environment variables if there is a change in the binding.
+The specification also has support for projecting binding values as environment variables.  You can use the built-in language feature of your programming language of choice to read environment variables.  The container must restart to read updated environment variable values.
+
+# Programmatic Language Bindings
+While the projection of a binding into a `Pod` can be consumed directly with features typically found in any programming language, it is often preferable to use a language binding that adds semantic meaning to the interaction.  For example:
+
+### Java
+_(Example taken from <https://github.com/nebhale/client-jvm>)_
+
+```java
+import com.nebhale.bindings.Binding;
+import com.nebhale.bindings.Bindings;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class Application {
+
+    public static void main(String[] args) {
+        Binding[] bindings = Bindings.fromServiceBindingRoot();
+        bindings = Bindings.filter(bindings, "postgresql");
+        if (bindings.length != 1) {
+            System.err.printf("Incorrect number of PostgreSQL drivers: %d\n", bindings.length);
+            System.exit(1);
+        }
+
+        String url = bindings[0].get("url");
+        if (url == null) {
+            System.err.println("No URL in binding");
+            System.exit(1);
+        }
+
+        Connection conn;
+        try {
+            conn = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            System.err.printf("Unable to connect to database: %s", e);
+            System.exit(1);
+        }
+
+        // ...
+    }
+
+}
+```
+
+### Go
+_(Example taken from <https://github.com/baijum/servicebinding>)_
+
+```go
+import (
+	"context"
+	"fmt"
+	"github.com/jackc/pgx/v4"
+	"github.com/baijum/servicebinding/binding"
+	"os"
+)
+
+func main() {
+	sb, err := bindings.FromServiceBindingRoot()
+	if err != nil {
+		_, _ = fmt.Fprintln(os.Stderr, "Could not read service bindings")
+		os.Exit(1)
+	}
+
+	b, err := sb.Bindings("postgresql")
+	if err != nil {
+		_, _ = fmt.Fprintln(os.Stderr, "Unable to find postgresql binding")
+		os.Exit(1)
+	}
+	if len(b) != 1 {
+		_, _ = fmt.Fprintf(os.Stderr, "Incorrect number of PostgreSQL bindings: %d\n", len(b))
+		os.Exit(1)
+	}
+
+	u, ok := b[0]["url"]
+	if !ok {
+		_, _ = fmt.Fprintln(os.Stderr, "No URL in binding")
+		os.Exit(1)
+	}
+
+	conn, err := pgx.Connect(context.Background(), u)
+	if err != nil {
+		_, _ = fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
+		os.Exit(1)
+	}
+	defer conn.Close(context.Background())
+
+	// ...
+}
+```
+
+## Known Language Bindings
+_(If you've created an implementation, please [submit a PR][p] for inclusion)_
+
+[p]: https://github.com/servicebinding/website/pulls
+
+* .NET
+	* [`donschenck/dotnetservicebinding`](https://github.com/donschenck/dotnetservicebinding)
+* Go
+	* [`baijum/servicebinding`](https://github.com/baijum/servicebinding)
+	* [`nebhale/client-go`](https://github.com/nebhale/client-go)
+* JVM
+	* [`nebhale/client-jvm`](https://github.com/nebhale/client-jvm)
+	* [Quarkus](https://quarkus.io/guides/deploying-to-kubernetes#service-binding)
+	* [Spring Cloud Bindings](https://github.com/spring-cloud/spring-cloud-bindings)
+* NodeJS
+	* [`nebhale/client-nodejs`](https://github.com/nebhale/client-nodejs)
+	* [`nodeshift/kube-service-bindings`](https://github.com/nodeshift/kube-service-bindings)
+* Python
+	* [`baijum/pyservicebinding`](https://github.com/baijum/pyservicebinding)
+	* [`nebhale/client-python`](https://github.com/nebhale/client-python)
+* Ruby
+	* [`nebhale/client-ruby`](https://github.com/nebhale/client-ruby)
+* Rust
+	* [`nebhale/client-rust`](https://github.com/nebhale/client-rust)
 
 # Specification
 * Core
