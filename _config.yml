@@ -7,3 +7,6 @@ description: Bind Services to Kubernetes Workloads
 
 github:
   is_project_page: false
+
+spec:
+  core: /spec/core/1.0.0-rc3/
