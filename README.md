@@ -16,8 +16,23 @@ To get started, please check out the guide for the appropriate role
 * [Application Operator](/application-operator/)
   Expects secrets to be transferred from services to workloads consistently and predictably
 
+<a name="community"></a>
+# Community, discussion, contribution, and support
+
+The Service Binding for Kubernetes project is a community lead effort.
+A bi-weekly [working group call][working-group] is open to the public.
+Discussions occur [on GitHub][github] and on the [#bindings-discuss channel in the Kubernetes Slack][slack].
+
 ## Specification
 * Core
   * [1.0.0-rc3](/spec/core/1.0.0-rc3/) (pre-release)
   * [1.0.0-rc2](/spec/core/1.0.0-rc2/) (pre-release)
   * [1.0.0-rc1](/spec/core/1.0.0-rc1/) (pre-release)
+
+## Code of conduct
+Participation in the Kubernetes community is governed by the [Kubernetes Code of Conduct][code-of-conduct].
+
+[working-group]: https://docs.google.com/document/d/1rR0qLpsjU38nRXxeich7F5QUy73RHJ90hnZiFIQ-JJ8/edit#heading=h.ar8ibc31ux6f
+[slack]: https://kubernetes.slack.com/archives/C012F2GPMTQ
+[github]: https://github.com/servicebinding
+[code-of-conduct]: https://git.k8s.io/community/code-of-conduct.md
