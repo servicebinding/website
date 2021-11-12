@@ -11,8 +11,24 @@ This project specifies a Kubernetes-wide specification for communicating service
 * Service Providers expect their secrets to be collected and exposed to users consistently and predictably.
 * Platforms expect to retrieve secrets from Service Providers and expose them to Application Developers consistently and predictably.
 
+<a name="community"></a>
+# Community, discussion, contribution, and support
+
+The Service Binding for Kubernetes project is a community lead effort.
+A bi-weekly [working group call][working-group] is open to the public.
+Discussions occur [on GitHub][github] and on the [#bindings-discuss channel in the Kubernetes Slack][slack].
+
+## Code of conduct
+
+Participation in the Kubernetes community is governed by the [Kubernetes Code of Conduct][code-of-conduct].
+
+[working-group]: https://docs.google.com/document/d/1rR0qLpsjU38nRXxeich7F5QUy73RHJ90hnZiFIQ-JJ8/edit#heading=h.ar8ibc31ux6f
+[slack]: https://kubernetes.slack.com/archives/C012F2GPMTQ
+[github]: https://github.com/servicebinding
+[code-of-conduct]: https://git.k8s.io/community/code-of-conduct.md
+
 # Consuming the Bindings from Workloads
-The [Workload Projection section](https://github.com/k8s-service-bindings/spec#workload-projection) of the specification describes how bindings are projected into the workload.  The primary mechanism of projection is through files mounted at a specific directory.  The bindings directory path is discovered through the mandatory `$SERVICE_BINDING_ROOT` environment variable set on all containers where bindings are created.
+The [Workload Projection section](/spec/core/1.0.0-rc3/#workload-projection) of the specification describes how bindings are projected into the workload.  The primary mechanism of projection is through files mounted at a specific directory.  The bindings directory path is discovered through the mandatory `$SERVICE_BINDING_ROOT` environment variable set on all containers where bindings are created.
 
 Within this service binding root directory, multiple Service Bindings may be projected.  For example, a workload that requires both a database and event stream will declare one `ServiceBinding` for the database, a second `ServiceBinding` for the event stream, and both bindings will be projected as subdirectories of the root.
 
