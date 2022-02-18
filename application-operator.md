@@ -1,6 +1,6 @@
 ---
 description: Service Bindings for Application Operators
-permalink: /application-application-operator/
+permalink: /application-operator/
 ---
 
 # TODO
