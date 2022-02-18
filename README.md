@@ -6,7 +6,7 @@ Today in Kubernetes, the exposure of secrets for connecting application workload
 
 This project specifies a Kubernetes-wide specification for communicating service secrets to workloads in an automated way.  It aims to create a widely applicable mechanism but _without_ excluding other strategies for systems that it does not fit easily.  The benefit of Kubernetes-wide specification is that all of the actors in an ecosystem can work towards a clearly defined abstraction at the edge of their expertise and depend on other parties to complete the chain.
 
-## User Guides
+# User Guides
 To get started, please check out the guide for the appropriate role
 
 * [Application Developer](/application-developer/)
@@ -16,6 +16,12 @@ To get started, please check out the guide for the appropriate role
 * [Application Operator](/application-operator/)
   Expects secrets to be transferred from services to workloads consistently and predictably
 
+# Specification
+* Core
+  * [1.0.0-rc3](/spec/core/1.0.0-rc3/) (pre-release)
+  * [1.0.0-rc2](/spec/core/1.0.0-rc2/) (pre-release)
+  * [1.0.0-rc1](/spec/core/1.0.0-rc1/) (pre-release)
+
 <a name="community"></a>
 # Community, discussion, contribution, and support
 
@@ -23,20 +29,7 @@ The Service Binding for Kubernetes project is a community lead effort.
 A bi-weekly [working group call][working-group] is open to the public.
 Discussions occur [on GitHub][github] and on the [#bindings-discuss channel in the Kubernetes Slack][slack].
 
-## Specification
-* Core
-  * [1.0.0-rc3](/spec/core/1.0.0-rc3/) (pre-release)
-  * [1.0.0-rc2](/spec/core/1.0.0-rc2/) (pre-release)
-  * [1.0.0-rc1](/spec/core/1.0.0-rc1/) (pre-release)
-
-<a name="community"></a>
-## Community, discussion, contribution, and support
-
-The Service Binding for Kubernetes project is a community lead effort.
-A bi-weekly [working group call][working-group] is open to the public.
-Discussions occur [on GitHub][github] and on the [#bindings-discuss channel in the Kubernetes Slack][slack].
-
-### Code of conduct
+## Code of conduct
 Participation in the Service Binding community is governed by the [Contributor Covenant][code-of-conduct].
 
 [working-group]: https://docs.google.com/document/d/1rR0qLpsjU38nRXxeich7F5QUy73RHJ90hnZiFIQ-JJ8/edit#heading=h.ar8ibc31ux6f
