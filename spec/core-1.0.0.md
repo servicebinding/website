@@ -45,7 +45,6 @@ Participation in the Service Binding community is governed by the [Contributor C
 
 <!-- Using https://github.com/yzhang-gh/vscode-markdown to manage toc -->
 - [Service Binding Specification for Kubernetes](#service-binding-specification-for-kubernetes)
-  - [Status](#status)
   - [Notational Conventions](#notational-conventions)
   - [Terminology definition](#terminology-definition)
 - [Provisioned Service](#provisioned-service)
@@ -78,12 +77,6 @@ Participation in the Service Binding community is governed by the [Contributor C
   - [Example Resource](#example-resource-4)
 
 ---
-
-## Status
-
-This document is a working draft of the Service Bindings for Kubernetes specification, representing the collective efforts of the [community](#community).  It is published for early implementors and users to provide feedback.  [Releases of the specification][releases] are published on the main website.
-
-[releases]: https://servicebinding.io/#specification
 
 ## Notational Conventions
 
