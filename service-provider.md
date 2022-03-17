@@ -3,10 +3,7 @@ description: Service Bindings for Service Providers
 permalink: /service-provider/
 ---
 
-Service providers expose bindings through a Secret resource with data required for connectivity.  The specification's [Provisioned Service section][provisioned-service] describes this in detail.  But there are two important parts:
-
-1. A Secret resource with data required for connectivity
-2. A custom resource with `.status.binding.name` attribute pointing to the Secret resource
+Service providers expose bindings through a Secret resource with data required for connectivity.  The specification's [Provisioned Service section][provisioned-service] describes this in detail.  Alternatively, the specification also support [Direct Secret Reference][direct-secret-reference].  The only important part required for Direct Secret Reference is a Secret resource with data required for connectivity.  But if you are creating a Provisioned Service (preferred approach), you also need a custom resource with `.status.binding.name` attribute pointing to the Secret resource.
 
 Here is an example custom resource:
 
@@ -116,3 +113,6 @@ getting installed, make sure this cluster role is also installed.
 
 1. RabbitMQ Operator: https://github.com/rabbitmq/cluster-operator/pull/615
 2. Kafka Access Operator: https://github.com/strimzi/kafka-access-operator
+
+[provisioned-service]: https://github.com/servicebinding/spec#provisioned-service
+[direct-secret-reference]: https://github.com/servicebinding/spec#direct-secret-reference
