@@ -18,7 +18,7 @@ status:
     name: production-db-secret
 ```
 
-In the above example, `production-db-secret` is the name of the `Secret` resource with data entries required for connectivity.  The `Secret` resource should contain a `type` entry that can be used for identifying the service.  It helps the application to indentify the service as a relational database, key-value store, or a cache server.  There is no standardization on the value for `type`, but you can see some good examples in the Spring Cloud Bindings.  A few examples:
+In the above example, `production-db-secret` is the name of the `Secret` resource with data entries required for connectivity.  The `Secret` resource should contain a `type` entry that can be used for identifying the service.  It helps the application to indentify the service as a relational database, key-value store, or a cache server.  There is no standardization on the value for `type`, but you can see some good examples in the [Spring Cloud Bindings][spring-cloud-bindings].  A few examples:
 
 - `cassandra`
 - `couchbase`
@@ -116,3 +116,4 @@ getting installed, make sure this cluster role is also installed.
 
 [provisioned-service]: https://github.com/servicebinding/spec#provisioned-service
 [direct-secret-reference]: https://github.com/servicebinding/spec#direct-secret-reference
+[spring-cloud-bindings]: https://github.com/spring-cloud/spring-cloud-bindings
