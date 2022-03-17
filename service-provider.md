@@ -3,12 +3,12 @@ description: Service Bindings for Service Providers
 permalink: /service-provider/
 ---
 
-Service providers expose bindings through a Secret resource with data required for connectivity.  The specification's [Provisioned Service section][provisioned-service] describes this in detail.  Alternatively, the specification also support [Direct Secret Reference][direct-secret-reference].  The only important part required for Direct Secret Reference is a Secret resource with data required for connectivity.  But if you are creating a Provisioned Service (preferred approach), you also need a custom resource with `.status.binding.name` attribute pointing to the Secret resource.
+Service providers expose bindings through a `Secret` resource with data required for connectivity.  The specification's [Provisioned Service section][provisioned-service] describes this in detail.  Alternatively, the specification also support [Direct Secret Reference][direct-secret-reference].  The only important part required for Direct Secret Reference is a `Secret` resource with data required for connectivity.  But if you are creating a Provisioned Service (preferred approach), you also need a custom resource with `.status.binding.name` attribute pointing to the `Secret` resource.
 
 Here is an example custom resource:
 
-```
-apiVersion: exmple.dev/v1beta1
+```yaml
+apiVersion: example.dev/v1beta1
 kind: Database
 metadata:
   name: database-service
@@ -18,37 +18,37 @@ status:
     name: production-db-secret
 ```
 
-In the above example, `production-db-secret` is the name of the Secret resource with data entries required for connectivity.  The Secret resource should contain a `type` entry that can be used for identifying the service.  It helps the application to indentify the service as a relational database, key-value store, or a cache server.  There is no standardization on the value for type, but you can see some good examples in the Spring Cloud Bindings. Few examples:
+In the above example, `production-db-secret` is the name of the `Secret` resource with data entries required for connectivity.  The `Secret` resource should contain a `type` entry that can be used for identifying the service.  It helps the application to indentify the service as a relational database, key-value store, or a cache server.  There is no standardization on the value for `type`, but you can see some good examples in the Spring Cloud Bindings.  A few examples:
 
-- cassandra
-- couchbase
-- db2
-- elasticsearch
-- kafka
-- ldap
-- mongodb
-- mysql
-- neo4j
-- oracle
-- postgresql
-- rabbitmq
-- redis
-- sqlserver
-- vault
+- `cassandra`
+- `couchbase`
+- `db2`
+- `elasticsearch`
+- `kafka`
+- `ldap`
+- `mongodb`
+- `mysql`
+- `neo4j`
+- `oracle`
+- `postgresql`
+- `rabbitmq`
+- `redis`
+- `sqlserver`
+- `vault`
 
-The type of the Secret resource should have a special value based on the `type` entry value.  The format is `servicebinding.io/{type}`.  For example, if the type entry is `mysql` the Secret's type value should be `servicebinding.io/mysql`.  This recommendation helps to query Secret resources of particular type using field-selector. For example:
+The type of the `Secret` resource should have a special value based on the `type` entry value.  The format is `servicebinding.io/{type}`.  For example, if the type entry is `mysql` the Secret's `type` value should be `servicebinding.io/mysql`.  This recommendation helps to query `Secret` resources of particular type using field-selector. For example:
 
-```
+```bash
 kubectl get secrets --field-selector="type=servicebinding.io/type"
 ```
 
-will give the Secret resources of `mysql` type.
+will give the `Secret` resources of `mysql` type.
 
 Similar to `type` entry, spec also recommends to add a `provider` entry to identify the provider.  The `provider` entry is a further classification of the type.
 
-Here is an example Secret:
+Here is an example `Secret`:
 
-```
+```yaml
 apiVersion: v1
 kind: Secret
 metadata:
@@ -82,8 +82,8 @@ If there is any entry that doesn’t follow the given requirement, you can choos
 
 # Considerations for Role-Based Access Control (RBAC)
 
-As a service povider, you can create a `ClusterRole` with the label
-(`servicebinding.io/controller=true`) and the verbs (`get`, `list`, and `watch`)
+As a service provider, you can create a `ClusterRole` with the label
+`servicebinding.io/controller=true` and the verbs `get`, `list`, and `watch`
 listed in the rules.  Here is an example `ClusterRole`:
 
 ```yaml
