@@ -36,10 +36,10 @@ In the above example, `production-db-secret` is the name of the `Secret` resourc
 - `sqlserver`
 - `vault`
 
-The type of the `Secret` resource should have a special value based on the `type` entry value.  The format is `servicebinding.io/{type}`.  For example, if the type entry is `mysql` the Secret's `type` value should be `servicebinding.io/mysql`.  This recommendation helps to query `Secret` resources of particular type using field-selector. For example:
+The `Secret` resource's `type` field should have a special value based on the `type` data entry value.  The expected format is `servicebinding.io/{type}`.  For example, if the value for `type` data entry is `mysql`, then the `Secret` resource's `type` field value should be `servicebinding.io/mysql`.  This recommendation helps to query `Secret` resources of particular type using field-selector. For example:
 
 ```bash
-kubectl get secrets --field-selector="type=servicebinding.io/type"
+kubectl get secrets --field-selector="type=servicebinding.io/mysql"
 ```
 
 will give the `Secret` resources of `mysql` type.
