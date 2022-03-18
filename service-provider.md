@@ -44,7 +44,7 @@ kubectl get secrets --field-selector="type=servicebinding.io/mysql"
 
 will give the `Secret` resources of `mysql` type.
 
-Similar to `type` entry, spec also recommends to add a `provider` entry to identify the provider.  The `provider` entry is a further classification of the type.
+Similar to the `type` data entry, spec also recommends to add a `provider` entry to identify the provider.  The `provider` data entry is a further classification of the type.
 
 Here is an example `Secret`:
 
@@ -62,6 +62,10 @@ stringData:
   username: root
   password: root
 ```
+
+In this example, `bitnami` is the provider.  The other potential values for provider include `mariadb`, `oracle`, and `aws-rds`.
+
+{% include tip.html content="In some cases, application protocol (e.g., `amqp`) could be the type.  If a service provider supports more than one protocol, it is possible to override the value for `type` and `provider` from the `ServiceBinding` resource." %}
 
 # Well-known Secret Entries
 
