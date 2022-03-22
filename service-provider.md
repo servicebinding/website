@@ -3,7 +3,7 @@ description: Service Bindings for Service Providers
 permalink: /service-provider/
 ---
 
-Service providers expose bindings through a `Secret` resource with data required for connectivity.  The specification's [Provisioned Service section][provisioned-service] describes this in detail.  Alternatively, the specification also support [Direct Secret Reference][direct-secret-reference].  The only important part required for Direct Secret Reference is a `Secret` resource with data required for connectivity.  But if you are creating a Provisioned Service (preferred approach), you also need a custom resource with `.status.binding.name` attribute pointing to the `Secret` resource.
+Service providers expose bindings through a `Secret` resource with data required for connectivity.  The specification's [Provisioned Service section][provisioned-service] describes this in detail.  Alternatively, the specification also supports [Direct Secret Reference][direct-secret-reference].  The only requirement for Direct Secret Reference is a `Secret` resource with data required for connectivity.  Alternatively, if you are creating a Provisioned Service (preferred approach), you also need a custom resource with `.status.binding.name` attribute pointing to the `Secret` resource.
 
 Here is an example custom resource:
 
