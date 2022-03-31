@@ -2,6 +2,7 @@ remote_theme: pages-themes/cayman@v0.2.0
 plugins:
 - jekyll-remote-theme
 
+repository: servicebinding/website
 title: Service Binding for Kubernetes
 description: Bind Services to Kubernetes Workloads
 
@@ -9,4 +10,4 @@ github:
   is_project_page: false
 
 spec:
-  core: /spec/core/1.0.0-rc3/
+  core: /spec/core/1.0.0/
