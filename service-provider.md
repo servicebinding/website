@@ -20,21 +20,10 @@ status:
 
 In the above example, `production-db-secret` is the name of the `Secret` resource with data entries required for connectivity.  The `Secret` resource should contain a `type` entry that can be used for identifying the service.  It helps the application to identify the service as a relational database, key-value store, or a cache server.  There is no standardization on the value for `type`, but you can see some good examples in the [Spring Cloud Bindings][spring-cloud-bindings].  A few examples:
 
-- `cassandra`
-- `couchbase`
-- `db2`
-- `elasticsearch`
-- `kafka`
-- `ldap`
-- `mongodb`
-- `mysql`
-- `neo4j`
-- `oracle`
 - `postgresql`
-- `rabbitmq`
+- `mysql`
 - `redis`
-- `sqlserver`
-- `vault`
+- `mongodb`
 
 The `Secret` resource's [`type` field](https://kubernetes.io/docs/concepts/configuration/secret/#secret-types) should have a special value based on the `type` data entry value.  The expected format is `servicebinding.io/{type}`.  For example, if the value for `type` data entry is `mysql`, then the `Secret` resource's `type` field value should be `servicebinding.io/mysql`.  This recommendation helps to query `Secret` resources of particular type using field-selector. For example:
 
