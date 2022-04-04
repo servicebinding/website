@@ -18,7 +18,7 @@ status:
     name: production-db-secret
 ```
 
-In the above example, `production-db-secret` is the name of the `Secret` resource with data entries required for connectivity.  The `Secret` resource should contain a `type` entry that can be used for identifying the service.  It helps the application to indentify the service as a relational database, key-value store, or a cache server.  There is no standardization on the value for `type`, but you can see some good examples in the [Spring Cloud Bindings][spring-cloud-bindings].  A few examples:
+In the above example, `production-db-secret` is the name of the `Secret` resource with data entries required for connectivity.  The `Secret` resource should contain a `type` entry that can be used for identifying the service.  It helps the application to identify the service as a relational database, key-value store, or a cache server.  There is no standardization on the value for `type`, but you can see some good examples in the [Spring Cloud Bindings][spring-cloud-bindings].  A few examples:
 
 - `cassandra`
 - `couchbase`
@@ -63,13 +63,13 @@ stringData:
   password: root
 ```
 
-In this example, `bitnami` is the provider.  The other potential values for provider include `mariadb`, `oracle`, and `aws-rds`.
+In this example, `bitnami` is the provider indicating the service was provisioned from the Bitnami catalog.  Use any appropriate value for services you provision that indicates to workloads how to consume the service. For a known type and provider, a workload should be able to know how to consume the service.
 
-{% include tip.html content="In some cases, application protocol (e.g., `amqp`) could be the type.  If a service provider supports more than one protocol, it is possible to override the value for `type` and `provider` from the `ServiceBinding` resource." %}
+{% include tip.html content="It is possible to override the `type` and `provider` values with the `ServiceBinding` resource. This capability is intended for users to consume existing `Secrets` that predate the Service Binding Specification. Service providers should set these values so that users don't need to do it themselves manually." %}
 
 # Well-known Secret Entries
 
-Apart from the special `type`, and `provider` entries in the Secret data, there are few special words, if used must follow certain restrictions for the values.  These are called well-known entries.
+Apart from the special `type`, and `provider` entries in the `Secret` data, there are few special words, if used must follow certain restrictions for the values.  These are called well-known entries.
 
 | Name | Requirements
 | ---- | ------------
@@ -82,13 +82,13 @@ Apart from the special `type`, and `provider` entries in the Secret data, there 
 | `private-key` | A PEM-encoded private key used in mTLS client authentication
 
 
-If there is any entry that doesn’t follow the given requirement, you can choose different names. For example, if there is a URI-like string but not a valid one, as per RFC-3986, use another name (e.g., "custom-uri").
+If there is any entry that doesn’t follow the given requirement, you can choose different names. For example, if there is a URI-like string but not a valid one, as per RFC-3986, use another name (e.g., "custom-uri"). If a service has multiple values for a key, consider a dot-delimited prefix (e.g. "amqp.port" or "mqtt.port") reusing the prefix with other keys as appropriate.
 
 # Considerations for Role-Based Access Control (RBAC)
 
 As a service provider, you can create a `ClusterRole` with the label
 `servicebinding.io/controller=true` and the verbs `get`, `list`, and `watch`
-listed in the rules.  Here is an example `ClusterRole`:
+listed in the rules.  Service Binding implementations use these permissions to lookup the service resource and read the binding secret name from its status when referenced by a ServiceBinding.  Here is an example `ClusterRole`:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -110,7 +110,7 @@ rules:
 
 In the above example, the API group for the backing service CRD is
 `example.dev` and the resource name (plural form) is `databases`.  You can
-change those values as per your Provisioned Service.  While your operator is
+change those values as per your Provisioned Service.  When your operator is
 getting installed, make sure this cluster role is also installed.
 
 # Real World Examples
