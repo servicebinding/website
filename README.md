@@ -36,4 +36,4 @@ Participation in the Service Binding community is governed by the [Contributor C
 [working-group]: https://docs.google.com/document/d/1rR0qLpsjU38nRXxeich7F5QUy73RHJ90hnZiFIQ-JJ8/edit#heading=h.ar8ibc31ux6f
 [slack]: https://kubernetes.slack.com/archives/C012F2GPMTQ
 [github]: https://github.com/servicebinding
-[code-of-conduct]: ./CODE_OF_CONDUCT.md
+[code-of-conduct]: /code-of-conduct/
