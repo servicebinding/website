@@ -86,7 +86,7 @@ listed in the rules.  Service Binding implementations use these permissions to l
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: examlples-service-bindings
+  name: examples-service-bindings
   labels:
     servicebinding.io/controller: "true" # matches the aggregation rule selector
 rules:
