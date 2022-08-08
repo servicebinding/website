@@ -12,11 +12,11 @@ This project specifies a Kubernetes-wide specification for communicating service
 To get started, please check out the guide for the appropriate role
 
 * [Application Developer](/application-developer/)
-  Expects secrets to be exposed consistently and predictably
+  expects secrets to be exposed consistently and predictably
 * [Service Provider](/service-provider/)
-  Expects secrets to be collected consistently and predictably
+  expects secrets to be collected consistently and predictably
 * [Application Operator](/application-operator/)
-  Expects secrets to be transferred from services to workloads consistently and predictably
+  expects secrets to be transferred from services to workloads consistently and predictably
 
 # Specification
 * Core
