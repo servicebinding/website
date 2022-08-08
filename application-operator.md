@@ -54,9 +54,9 @@ spec:
 ```
 
 It is possible to create more than one `ServiceBinding` resource pointing to the
-same service. Similarly you can more than one `ServiceBinding` resource pointing
-to the same workload. The service, workload and binding resources must be in the same
-namespace.
+same service. Similarly you can create more than one `ServiceBinding` resource
+pointing to the same workload. The service, workload and ServiceBinding
+resources must be in the same namespace.
 
 By default, the bindings are projected into all regular containers and init
 containers. But is possible to restrict the projection based a name based
@@ -130,12 +130,12 @@ is same as the value of `.metadata.name`. But it can override by setting a
 
 The directory where the volume is mounted is decided based on the value of
 environment variable `SERVICE_BINDING_ROOT`. If that environment variable is not
-present, a location is assigned (often `/bindings`) and the value is set as the `SERVICE_BINDING_ROOT`
-environment variable. This way application can rely on `SERVICE_BINDING_ROOT`
-environment variable to lookup bindings.
+present, a location is assigned (often `/bindings`) and the value is set as the
+`SERVICE_BINDING_ROOT` environment variable. This way application can rely on
+`SERVICE_BINDING_ROOT` environment variable to lookup bindings.
 
 The ServiceBinding resource allows to override values of `type` and `provider`
-entries.  You can set it through `.spec.type` and `.spec.provider`.
+entries.  You can set it through `.spec.type` and `.spec.provider` attributes.
 
 # Service Binding Status
 
