@@ -3,7 +3,8 @@ description: Service Bindings for Application Developers
 permalink: /application-developer/
 ---
 
-Application developers consume service bindings by reading [volume mounted `Secret`s][vm] from a directory.  The specification's [Workload Projection section][wp] describes this in detail but there are three important parts:
+Application developers consume service bindings by reading [volume mounted `Secret`s][vm] from a directory.  The specification's [Workload Projection section][wp] 
+describes this in detail but there are three important parts:
 
 [vm]: https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-files-from-a-pod
 [wp]: {{ site.spec.core }}#workload-projection
@@ -32,20 +33,27 @@ $SERVICE_BINDING_ROOT
     └── private-key
 ```
 
-In the example, there are two bindings under the `$SERVICE_BINDING_ROOT` directory with the names `account-database` and `transaction-event-stream`.  In order for a workload to configure itself, it must select the proper binding for each client type.  Each binding directory has a special file named `type` that is used to identify the type of the binding projected into that directory (e.g. `mysql`, `kafka`).
+In the example, there are two bindings under the `$SERVICE_BINDING_ROOT` directory with the names `account-database` and `transaction-event-stream`.  In order for a 
+workload to configure itself, it must select the proper binding for each client type.  Each binding directory has a special file named `type` that is used to identify 
+the type of the binding projected into that directory (e.g. `mysql`, `kafka`).
 
-In most cases, the `type` entry should be enough to select the appropriate binding.  In the cases where it is not (e.g. when there are different providers for the same service type), the optional but strongly encouraged `provider` entry should be used to further differentiate bindings.  For example, when the `type` is `mysql`, `provider` values of `mariadb`, `oracle`, `bitnami`, or `aws-rds` can be used to choose a binding.
+In most cases, the `type` entry should be enough to select the appropriate binding.  In the cases where it is not (e.g. when there are different providers for the same 
+service type), the optional but strongly encouraged `provider` entry should be used to further differentiate bindings.  For example, when the `type` is `mysql`, 
+`provider` values of `mariadb`, `oracle`, `bitnami`, or `aws-rds` can be used to choose a binding.
 
-{% include tip.html content="Wherever possible select a binding using the `type` entry and, if necessary, the `provider` entry.  Consider using the name of the binding only as a last resort." %}
+{% include tip.html content="Wherever possible select a binding using the `type` entry and, if necessary, the `provider` entry.  Consider using the name of the binding 
+only as a last resort." %}
 
 # Language-specific Libraries
-A binding can almost always be consumed directly with features found in any programming language.  However, it's often preferable to use a language-specific library that adds semantic meaning to the code.  There's no "right" way to interact with a binding, so here's a partial list of libraries you might use:
+A binding can almost always be consumed directly with features found in any programming language.  However, it's often preferable to use a language-specific library that 
+adds semantic meaning to the code.  There's no "right" way to interact with a binding, so here's a partial list of libraries you might use:
 
 * .NET
 	* [`donschenck/dotnetservicebinding`](https://github.com/donschenck/dotnetservicebinding)
 * Go
 	* [`baijum/servicebinding`](https://github.com/baijum/servicebinding)
 	* [`nebhale/client-go`](https://github.com/nebhale/client-go)
+	* [`rhjensen79/files2env`](https://github.com/rhjensen79/files2env)
 * JVM
 	* [`nebhale/client-jvm`](https://github.com/nebhale/client-jvm)
 	* [Quarkus](https://quarkus.io/guides/deploying-to-kubernetes#service-binding)
