@@ -109,6 +109,7 @@ getting installed, make sure this cluster role is also installed.
 
 1. [RabbitMQ Operator](https://github.com/rabbitmq/cluster-operator/pull/615)
 2. [Kafka Access Operator](https://github.com/strimzi/kafka-access-operator)
+3. [External Secrets Operator](https://external-secrets.io/)
 
 [provisioned-service]: https://github.com/servicebinding/spec#provisioned-service
 [direct-secret-reference]: https://github.com/servicebinding/spec#direct-secret-reference
