@@ -143,7 +143,81 @@ TODO
 
 # Workload Resource Mapping
 
-TODO
+By default, an implementation assumes that it is projecting binding information
+into workloads with a shape similar to `Deployment.apps` resources.  For
+instance, it may assume that it can find volume information at
+`.spec.template.spec.volumes`.
+
+However, this assumption does not work with workloads of a different resource
+shape, such as a CronJob.  To support these cases, you can use
+`ClusterWorkloadResourceMapping.servicebinding.io` resources to inform the
+ServiceBinding controller how it can project information into these resources.
+
+## Resource Schema
+
+`ClusterWorkloadResourceMapping` resources have the following shape:
+
+```yaml
+apiVersion: servicebinding.io/v1beta1
+kind: ClusterWorkloadResourceMapping
+metadata:
+  name: # string (1)
+spec:
+  versions:         # []MappingTemplate (2)
+  - version:        # string (3)
+    annotations:    # string (Fixed JSONPath), optional (4)
+    containers:     # []MappingContainer, optional (5)
+    - path:         # string (JSONPath) (6)
+      name:         # string (Fixed JSONPath), optional (7)
+      env:          # string (Fixed JSONPath), optional (8)
+      volumeMounts: # string (Fixed JSONPath), optional (9)
+    volumes:        # string (Fixed JSONPath), optional (10)
+```
+
+Some notes:
+
+1. These resources need to be named after the plural name of the resource.  For
+   instance, to define mappings for `CronJob` resources, the mapping needs to
+   be named `cronjobs.batch`.
+2. Entries in this array define the resource version that this template maps
+   to.  This lets one mapping support multiple resource versions.
+3. The version here must either match a version exactly (e.g. `v1alpha1`) or
+   can be `*` to match all versions that don't have an exact match.
+4. Some fields in the mapping must conform to what the spec calls a "Fixed
+   JSONPath".  This is a JSONPath, but restricted to dot (".") and array access
+   ("foo['bar']") operators.  For more information, please refer to [the
+   spec](https://github.com/servicebinding/spec#fixed-jsonpath).
+
+   This field indicates where annotations for the generated pod might be found.
+   Defaults to `.spec.template.metadata.annotations`.
+5. Entries in this array define where containers might be found.  This lets a
+   single version refer to multiple container fields, such as containers and
+   init containers.
+6. Defines the root of where container information may be found.
+7. Indicates the name of the container.  Defaults to `.name`.
+8. Indicates where environment variables can be set in the container.  Defaults to `.env`.
+9. Indicates where volume mount information can be set in the container.  Defaults to `.volumeMounts`.  
+10. Indicates where volumes can be specified for the generated pod.  Corresponds to the volumes field in pods.
+
+## Examples
+
+For instance, `cronjobs.batch` resources could be made bindable with the
+following mapping:
+
+```yaml
+apiVersion: servicebinding.io/v1beta1
+kind: ClusterWorkloadResourceMapping
+metadata:
+  name: cronjobs.batch
+spec:
+  versions:
+  - version: "*"
+    annotations: .spec.jobTemplate.spec.template.metadata.annotations
+    containers:
+    - path: .spec.jobTemplate.spec.template.spec.containers[*]
+    - path: .spec.jobTemplate.spec.template.spec.initContainers[*]
+    volumes: .spec.jobTemplate.spec.template.spec.volumes
+```
 
 # Role-Based Access Control (RBAC)
 
