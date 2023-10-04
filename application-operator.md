@@ -148,10 +148,10 @@ into workloads with a shape similar to `Deployment.apps` resources.  For
 instance, it may assume that it can find volume information at
 `.spec.template.spec.volumes`.
 
-However, this assumption does not work with workloads of a different resource
-shape, such as a CronJob.  To support these cases, you can use
-`ClusterWorkloadResourceMapping.servicebinding.io` resources to inform the
-ServiceBinding controller how it can project information into these resources.
+This assumption does not work with workloads of a different resource shape,
+such as a `CronJob`.  To support these cases, you can use a
+`ClusterWorkloadResourceMapping.servicebinding.io` resource to inform the
+`ServiceBinding` controller how it can project information into these resources.
 
 ## Resource Schema
 
@@ -178,26 +178,34 @@ Some notes:
 
 1. These resources need to be named after the plural name of the resource.  For
    instance, to define mappings for `CronJob` resources, the mapping needs to
-   be named `cronjobs.batch`.
-2. Entries in this array define the resource version that this template maps
-   to.  This lets one mapping support multiple resource versions.
+   be named `cronjobs.batch`.  This is the same pattern used to name
+   `CustomResourceDefinitions`s.
+2. Entries in this array define the resource version that this template
+   handles.  Each mapping supports all versions of the target resource.
 3. The version here must either match a version exactly (e.g. `v1alpha1`) or
-   can be `*` to match all versions that don't have an exact match.
+   can be `*` to match all versions that don't have an exact match.  A workload
+   that does not match a defined mapping version reverts to the default
+   mapping.
 4. Some fields in the mapping must conform to what the spec calls a "Fixed
-   JSONPath".  This is a JSONPath, but restricted to dot (".") and array access
-   ("foo['bar']") operators.  For more information, please refer to [the
+   JSONPath".  This is a JSONPath, but restricted to dot (`.`) and array access
+   (`foo['bar']`) operators.  For more information, please refer to [the
    spec](https://github.com/servicebinding/spec#fixed-jsonpath).
 
    This field indicates where annotations for the generated pod might be found.
    Defaults to `.spec.template.metadata.annotations`.
-5. Entries in this array define where containers might be found.  This lets a
+5. Entries in this array define where a container might be found.  This lets a
    single version refer to multiple container fields, such as containers and
-   init containers.
+   init containers.  Arrays of containers must be expanded to resolve sets of
+   individual containers, for example `.spec.template.spec.containers[*]`.
 6. Defines the root of where container information may be found.
-7. Indicates the name of the container.  Defaults to `.name`.
-8. Indicates where environment variables can be set in the container.  Defaults to `.env`.
-9. Indicates where volume mount information can be set in the container.  Defaults to `.volumeMounts`.  
-10. Indicates where volumes can be specified for the generated pod.  Corresponds to the volumes field in pods.
+7. Indicates the name of the container.  If not specified, selective binding to
+   containers by name is not supported for this mapping.
+8. Indicates where environment variables can be set in the container.  Defaults
+   to `.env`.
+9. Indicates where volume mount information can be set in the container.
+   Defaults to `.volumeMounts`.
+10. Indicates where volumes can be specified for the generated pod.  Defaults
+    to `.spec.template.spec.volumes`
 
 ## Examples
 
