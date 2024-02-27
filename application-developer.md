@@ -50,6 +50,7 @@ adds semantic meaning to the code.  There's no "right" way to interact with a bi
 
 * .NET
 	* [`donschenck/dotnetservicebinding`](https://github.com/donschenck/dotnetservicebinding)
+	* [Steeltoe](https://docs.steeltoe.io/api/v3/connectors/)
 * Go
 	* [`baijum/servicebinding`](https://github.com/baijum/servicebinding)
 	* [`nebhale/client-go`](https://github.com/nebhale/client-go)
