@@ -111,6 +111,6 @@ getting installed, make sure this cluster role is also installed.
 2. [Kafka Access Operator](https://github.com/strimzi/kafka-access-operator)
 3. [External Secrets Operator](https://external-secrets.io/)
 
-[provisioned-service]: https://github.com/servicebinding/spec#provisioned-service
-[direct-secret-reference]: https://github.com/servicebinding/spec#direct-secret-reference
+[provisioned-service]: {{ site.spec.core }}#provisioned-service
+[direct-secret-reference]: {{ site.spec.core }}#direct-secret-reference
 [spring-cloud-bindings]: https://github.com/spring-cloud/spring-cloud-bindings
