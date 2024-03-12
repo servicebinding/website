@@ -16,7 +16,7 @@ workloads are going to bound to the same service.
 Here is an example `ServiceBinding` resource with workload identified by name:
 
 ```yaml
-apiVersion: servicebinding.io/v1beta1
+apiVersion: servicebinding.io/v1
 kind: ServiceBinding
 metadata:
   name: account-service
@@ -34,7 +34,7 @@ spec:
 Here is an example `ServiceBinding` resource with workload identified by label selector:
 
 ```yaml
-apiVersion: servicebinding.io/v1beta1
+apiVersion: servicebinding.io/v1
 kind: ServiceBinding
 metadata:
   name: online-banking-frontend-to-account-service
@@ -67,7 +67,7 @@ used to project bindings.
 Here is an example with restricted container names:
 
 ```yaml
-apiVersion: servicebinding.io/v1beta1
+apiVersion: servicebinding.io/v1
 kind: ServiceBinding
 metadata:
   name: account-service
@@ -94,7 +94,7 @@ variable.
 Here is an example with environment variables:
 
 ```yaml
-apiVersion: servicebinding.io/v1beta1
+apiVersion: servicebinding.io/v1
 kind: ServiceBinding
 metadata:
   name: account-service
@@ -158,7 +158,7 @@ such as a `CronJob`.  To support these cases, you can use a
 `ClusterWorkloadResourceMapping` resources have the following shape:
 
 ```yaml
-apiVersion: servicebinding.io/v1beta1
+apiVersion: servicebinding.io/v1
 kind: ClusterWorkloadResourceMapping
 metadata:
   name: # string (1)
@@ -189,7 +189,7 @@ Some notes:
 4. Some fields in the mapping must conform to what the spec calls a "Fixed
    JSONPath".  This is a JSONPath, but restricted to dot (`.`) and array access
    (`foo['bar']`) operators.  For more information, please refer to [the
-   spec](https://github.com/servicebinding/spec#fixed-jsonpath).
+   spec]({{ site.spec.core }}#fixed-jsonpath).
 
    This field indicates where annotations for the generated pod might be found.
    Defaults to `.spec.template.metadata.annotations`.
@@ -213,7 +213,7 @@ For instance, `cronjobs.batch` resources could be made bindable with the
 following mapping:
 
 ```yaml
-apiVersion: servicebinding.io/v1beta1
+apiVersion: servicebinding.io/v1
 kind: ClusterWorkloadResourceMapping
 metadata:
   name: cronjobs.batch
@@ -231,4 +231,4 @@ spec:
 
 TODO
 
-[sb]: https://github.com/servicebinding/spec#service-binding
+[sb]: {{ site.spec.core }}#service-binding

@@ -20,6 +20,7 @@ To get started, please check out the guide for the appropriate role
 
 # Specification
 * Core
+  * [1.1.0](/spec/core/1.1.0/)
   * [1.0.0](/spec/core/1.0.0/)
   * [1.0.0-rc3](/spec/core/1.0.0-rc3/) (pre-release)
   * [1.0.0-rc2](/spec/core/1.0.0-rc2/) (pre-release)
