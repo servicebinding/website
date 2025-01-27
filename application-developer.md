@@ -50,6 +50,8 @@ adds semantic meaning to the code.  There's no "right" way to interact with a bi
 
 * .NET
 	* [`donschenck/dotnetservicebinding`](https://github.com/donschenck/dotnetservicebinding)
+	* [Steeltoe](https://docs.steeltoe.io/api/v3/connectors/)
+     {% include note.html content="Steeltoe v3's docs incorrectly state that service bindings [are not supported](https://docs.steeltoe.io/api/v3/connectors/usage.html#kubernetes). Refer to [its code](https://github.com/SteeltoeOSS/Steeltoe/tree/release/3.2/src/Configuration/src/Kubernetes.ServiceBinding), [tests](https://github.com/SteeltoeOSS/Steeltoe/tree/release/3.2/src/Configuration/test/Kubernetes.ServiceBinding.Test) and the [sample app](https://github.com/SteeltoeOSS/Samples/tree/main/Connectors/src/PostgreSqlEFCore)." %}
 * Go
 	* [`baijum/servicebinding`](https://github.com/baijum/servicebinding)
 	* [`nebhale/client-go`](https://github.com/nebhale/client-go)
